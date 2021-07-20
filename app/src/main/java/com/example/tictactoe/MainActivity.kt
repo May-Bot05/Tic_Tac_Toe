@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity() {
     private var playerOneTurn = true
     private var playerOneMoves = mutableListOf<Int>()
     private var playerTwoMoves = mutableListOf<Int>()
+    private var isOverbyWin = false
 
     private val possibleWins: Array<List<Int>> = arrayOf(
         //Horizontal positions
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 params2.weight = 1.0F
                 button.setOnClickListener{
                     recordMove(it)
-                    if (checkForDraw()) {
+                    if (checkForDraw() && !isOverbyWin) {
                         Toast.makeText(this, "Game Draw!", Toast.LENGTH_LONG).show()
                     }
                 }
@@ -133,6 +134,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        isOverbyWin = won
         return (won)
     }
 
@@ -154,7 +156,7 @@ class MainActivity : AppCompatActivity() {
         if (otherPlayerName.isBlank()) {
             otherPlayerName = otherPlayer.hint.toString()
         }
-        Toast.makeText(this, "Congratulations! $playerName has Won! SUCK IT $otherPlayerName XDXD",
+        Toast.makeText(this, "Congratulations! $playerName has Won! $otherPlayerName Better Luck next time",
             Toast.LENGTH_LONG).show()
         setAllButtonsOff()
     }
